@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Coaching Express-Supervision</title>
+
+    <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="css/components.css">
+    <link type="text/css" rel="stylesheet" href="css/icons.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+
+    <!--<link rel="shortcut icon" href="img/icon.ico">   favicon -->
+
+</head>
+
+<body class="bg-ligth">
+
+    <div class="container ">
+
+        <div class="form-group">
+
+            <header class="header">
+
+
+            </header>
+
+            <section class="play-list-wrap">
+                <ul class="play-list" id="play-list"></ul>
+            </section>
+
+            <section class="form-control player-wrap">
+
+                <audio id="player" preload="auto">su navegador no soporta el audio.</audio>
+
+
+                <div class="form-control bg-danger">
+
+                    <button type="button" class="btn player-btn icon icon-repeat" id="repeat"></button>
+                    <button type="button" class="btn player-btn icon icon-chevron-left" id="prev"></button>
+                    <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                        <div class="flipper">
+                            <div class="front">
+                                <button type="button" class="btn player-btn icon icon-play large"
+                                    id="btn-play"></button>
+                            </div>
+                            <div class="back">
+                                <button type="button" class="btn player-btn icon icon-pause large"
+                                    id="btn-pause"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn player-btn icon icon-chevron-right" id="next"></button>
+                    <button type="button" class="btn player-btn icon icon-random" id="random"></button>
+                </div>
+
+                <div class="music-info">
+                    <div class="loading-wrap">
+                        <span id="loading-music" class="loading">Cargando...</span>
+                    </div>
+                    <label id="music-name"> </label>
+                </div>
+
+                <div class="timeline-wrap">
+                    <label id="time-count">00:00</label>
+                    <input type="range" class="range opaque" min="0" max="100" id="timeline" value="0" step="any">
+                    <label id="time">00:00</label>
+
+                    <div class="volume-wrap">
+                        <button type="button" class="btn-volume btn player-btn small icon icon-volume-down"></button>
+                        <span class="volume-box">
+                            <input type="range" class="range" min="0" max="10" id="volume" value="10">
+                        </span>
+                    </div>
+                </div>
+                <div class=" upload-wrap">
+
+                    <input type="file" id="file-element" accept="audio/mp3" multiple style="display:none;" />
+                    <button type="button" id="btn-upload" class="btn btn-warning text-white form-control"
+                        title="Adicionar Músicas"></span>Seleccionar audios</button>
+                    </form>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="form-control">
+            <form class="form-group" action="Database.php" method="post">
+             <!--  <img class="btn" src="img/color-negativo.png" alt="">-->
+                <section>
+
+                    <div class="content_quiz">
+                        <div class="">
+                            <section>
+
+
+                                <div class="">
+
+
+
+                                    <p><b> Agente:</b></p> <select class="form-control select" name="agente" id="" required>
+                                        </p>
+                                        <option value="Nahuel Buzzi">Nahuel Buzzi</option>
+                                        <option value="Ayelen Riniti">Ayelen Riniti</option>
+                                        <option value="Federico Gomez">Federico Gomez</option>
+                                        <option value="Rodrigo Marini">Rodrigo Marini</option>
+                                        <option value="Carla Riquelme">Carla Riquelme</option>
+                                        <option value="Alex Barni">Alex Barni</option>
+                                        <option value="Estefania Aguero">Estefania Aguero</option>
+                                        <option value="Nicolas Tula">Nicolas Tula</option>
+                                        <option value="Malena Cuelli">Malena Cuelli</option>
+                                        <option value="Solange Bacaicoa">Solange Bacaicoa</option>
+                                        <option value="Ilda Collante">Ilda Collante</option>
+                                        <option value="Cristian Chavez">Cristian Chavez</option>
+                                        <option value="Luis Ayala">Luis Ayala</option>
+                                        <option value="Sandra Bustamante">Sandra Bustamante</option>
+                                        <option value="Romina Zarate">Romina Zarate</option>
+                                        <option value="Uriel Dobrovolsky">Uriel Dobrovolsky</option>
+                                        <option value="Adrian Lebrini">Adrian Lebrini</option>
+                                        <option value="jazmin Lopez">Jazmin Lopez</option>
+                                        <option value="ximena valor">Ximena Valor</option>
+                                        <option value="sebastian cervera">Sebastian Cervera</option>
+
+                                    </select>
+
+
+                                    <p><b> Fecha: </b></p><input class=" form-control select" name="fecha" type="date" required>
+                               
+                                    <label for="legajoSup"><b>Supervisor/a:</b></label>
+                                    <select name="legajoSup" class=" form-control select" id="">
+                                        <option value="Micaela Nogues">Micaela Nogues</option>
+                                        <option value="Matias Gasañol">Matias Gasañol</option>
+                                        <option value="Patricia Perez">Patricia Perez</option>
+                                        <option value="Florencia Montenegro">Florencia Montenegro</option>
+
+                                    </select>
+
+
+                                    <p><b> Cola:</b></p> <select name="cola" class="form-control select" required>
+                                        <option value="CLIENTES">CLIENTES</option>
+                                        <option value="CORPORATIVOS">CORPORATIVOS</option>
+                                        <option value="FACTURACION">FACTURACION</option>
+                                        <option value="GUIA">GUIA</option>
+                                        <option value="INTERNET-2">INTERNET-2</option>
+                                        <option value="NO CLIENTES">NO CLIENTES</option>
+                                        <option value="OTRAS">OTRAS</option>
+                                        <option value="PACKTV">PACKTV</option>
+                                        <option value="PAGOS">PAGOS</option>
+                                        <option value="PRODUCTOS">PRODUCTOS</option>
+                                        <option value="PROMOCIONES">PROMOCIONES</option>
+                                        <option value="REPARACIONES">REPARACIONES</option>
+                                        <option value="TELEFONIA-INTERNET">TELEFONIA-INTERNET</option>
+                                        <option value="TELEVISION">TELEVISION</option>
+                                        <option value="TELEVISION-PRODUCTOS">TELEVISION-PRODUCTOS</option>
+                                    </select>
+
+                                    <p><b> Linea:</b></p> <input class="form-control select" style="cursor: auto;"
+                                        autocomplete="off" name="linea" type="text" required>
+
+
+                                </div>
+
+                            </section>
+                        </div>
+
+                    </div>
+
+                    <hr>
+                    <h3>Presentacion</h3>
+
+
+                    Saludo e identificación
+                    <input type="checkbox" class="form-check-input" class="form-check-input"
+                        name="saludoEIdentificacion"><br>
+                    Recursos vocales (altura, intensidad, ritmo, tono, volumen)
+                    <input type="checkbox" class="form-check-input" name="recursosVocales"><br>
+                    Lenguaje (claro, conciso, coloquial, convincente, seguridad, muletillas, vocabulario informal,etc)
+                    <input type="checkbox" class="form-check-input" name="lenguaje"><br>
+                    Escucha activa
+                    <input type="checkbox" class="form-check-input" name="escuchaActiva"><br>
+                    Empatía con el/la abonado/a
+                    <input type="checkbox" class="form-check-input" name="empatia"><br>
+                    Respeto
+                    <input type="checkbox" class="form-check-input" name="respeto"><br>
+                    Conducción del llamado (indaga correctamente, acierta con las preguntas)
+                    <input type="checkbox" class="form-check-input" name="conduccion"><br>
+
+
+
+                    <hr>
+
+                    <h3>Precisión</h3>
+
+                    Brinda información real y actualizada (agenda de coaching + información en sistema. Msj
+                    administrativos,
+                    reclamos, etc)
+
+                    <input type="checkbox" class="form-check-input" name="brindaInfo"><br>
+
+                    Uso de Speach predeterminado
+
+                    <input type="checkbox" class="form-check-input" name="speech"><br>
+                    Realiza adecuadamente derivaciones, chequeos y corroboración de datos (confirma titularidad, línea,
+                    etc)
+
+                    <input type="checkbox" class="form-check-input" name="derivaciones"><br>
+                    Confirma mail de contacto
+                    <input type="checkbox" class="form-check-input" name="contactoMail"><br>
+
+                    Confirma celular de contacto
+                    <input type="checkbox" class="form-check-input" name="contactoCel"><br>
+
+                    Registra de manera correcta el resultado de la gestión (popup/matrix/SAT)
+                    <input type="checkbox" class="form-check-input" name="registra"><br>
+
+
+
+                    <hr>
+                    <h3>Manejo de objeciones y capacidad de argumentación
+                    </h3>
+                    Argumenta de manera entusiasta y convincente
+
+
+                    <input type="checkbox" class="form-check-input" name="argumenta"><br>
+                    Da respuestas o argumentos de manera rápida y adecuada ante preguntas o situaciones imprevistas
+
+
+                    <input type="checkbox" class="form-check-input" name="respuestas"><br>
+                    Sondeo, diagnóstico
+
+
+                    <input type="checkbox" class="form-check-input" name="diagnostico"><br>
+                    Capacidad de negociación (manejo de objeciones)
+
+                    <input type="checkbox" class="form-check-input" name="negociacion"><br>
+                    Cierre del llamado <input type="checkbox" name="cierre" class="form-check-input"><br>
+
+
+
+
+
+                    <hr>
+                    <h3>Observaciones supervisor/a:</h3>
+                    <textarea class="form-control" autocomplete="off" name="observaciones" required></textarea>
+
+                    <div class="envio">
+                        <label for="nombreDoc">Nombre del archivo final: </label>
+                        <input class="form-control" type="text" required name="nombreDoc" autocomplete="off"
+                            placeholder="nombre del archivo..." required>
+                        <button class="btn btn-success text-white mt-5 form-control mb-5" type="submit">Guardar y
+                            continuar</button>
+            </form>
+        </div>
+
+    </div>
+
+    </div>
+
+    <script type="text/javascript" src="js/player.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+
+
+
+</body>
+
+
+
+<!--<h1 class="container text-secondary">Web en mantenimiento, disculpe las molestias.</h1> -->
+
+</html>

@@ -1,0 +1,204 @@
+<?php $__env->startSection('content'); ?>
+
+
+<!--<h2 class="text-center mb-5">Mi Personal</h2>-->
+<div class="col-md-50 mx-auto bg-ligth ">
+    <div class="container">
+
+
+
+
+        <?php if(count($notas) == 0): ?>
+        <h2><img src="<?php echo e(asset('/img/sentiment_dissatisfied_black_24dp.svg')); ?>" style="width: 100px; opacity: 0.2;" alt="">No se encontraron notas...</h2>
+        <a class="btn btn-secondary mr-2 mt-5" href="<?php echo e(route('gestion.index')); ?>">Volver</a>
+        <button class="btn btn-primary  text-white mt-5" data-toggle="modal" data-target="#exampleModal"> crear nueva nota</button>
+        <!-- Modal -->
+        <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nueva nota</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body ">
+                        <form action="<?php echo e(route('gestion.addNote',['nombre'=>$operador])); ?>" method="POST">
+                            <?php echo csrf_field(); ?>
+                            <div class="form-group">
+                                <label for="recipient-name">Motivo:</label>
+                                <select name="titulo" class="form-control" id="">
+                                    <option value="Gestiones incorrectas">Gestiones incorrectas</option>
+                                    <option value="Llegadas tarde">Llegadas tarde</option>
+                                    <option value="Queja cliente">Queja cliente</option>
+                                    <option value="Distinción cliente">Distinción cliente</option>
+                                    <option value="horas a favor">Horas a favor</option>
+                                    <option value="horas en contra">Horas en contra</option>
+                                    <option value="Ausencias">Ausencias</option>
+                                    <option value="Otros">Otros</option>
+                                    <option value="Faltas a las normas">Faltas a las normas</option>
+                                    <option value="Faltas procedimientos">Faltas procedimientos</option>
+                                    <option value="Inconvenientes con el sistema">Inconvenientes con el sistema</option>
+
+                                </select>
+                            </div>
+                           Autofinalizar? <input type="checkbox" name="autofinalizar">
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Descripcion:</label>
+                                <textarea class="form-control" id="message-text" name="nota"></textarea>
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <?php else: ?>
+    </div>
+
+    <table class="table table-bordered table-sm">
+        <tbody>
+            <thead class="">
+                <th>Causa</th>
+                <th>Fecha de registro</th>
+                <th>Detalle</th>
+                <th>vigencia</th>
+                <th>Eliminar</th>
+            </thead>
+            <?php $__currentLoopData = $notas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $nota): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <tr>
+                <td><b><?php echo e($nota->titulo); ?></b></td>
+                <td><span class="font-weight-bold"><?php echo e($nota->fecha); ?></span></td>
+
+                <td>
+
+
+                    <?php if($nota->vigencia =='si'): ?>
+                    <a class="btn btn-success" href="<?php echo e(route('gestion.verNote',['id'=>$nota->id])); ?>"><img src="<?php echo e(asset('img\visibility_white_24dp.svg')); ?>" alt=""></a>
+                    <?php else: ?>
+                    <a class="btn btn-secondary" href="<?php echo e(route('gestion.verNote',['id'=>$nota->id])); ?>"><img src="<?php echo e(asset('img\visibility_white_24dp.svg')); ?>" alt=""></a>
+                    <?php endif; ?>
+                    <!-- <a class="text-dark" href="<?php echo e(route('gestion.verNote',['id'=>$nota->id])); ?>"><?php echo e($nota->nota); ?></a>-->
+
+
+                </td>
+                <?php if($nota->vigencia =='si' && $nota->titulo != 'horas a favor' ): ?>
+              <!-- <td><a class="btn btn-success" onclick="return finalizarVigencia()" href="<?php echo e(route('gestion.finalizarVigencia',$nota->id)); ?>">finalizar vigencia</a></td> -->
+                <td><a class="btn btn-success" onclick="return finalizarVigencia()" href="<?php echo e(route('gestion.finalizarNote',['id'=>$nota->id])); ?>">Finalizar</a></td>
+                <?php else: ?>
+                <?php if($nota->vigencia =='si' && $nota->titulo == 'horas a favor' ): ?>
+                <td><a class="btn btn-success" onclick="return finalizarVigencia()" href="<?php echo e(route('gestion.finalizarNote',['id'=>$nota->id])); ?>">compensar</a></td>
+                <?php else: ?>
+                <?php if($nota->titulo == 'horas a favor'): ?>
+                <td><i>cumplido</i> <img src="<?php echo e(asset('img/check.svg')); ?>" style="width: 20px;" alt=""></td>
+                <?php else: ?>
+                <td><i>Finalizado</i></td>
+                <?php endif; ?>
+
+
+
+                <?php endif; ?>
+
+                <?php endif; ?>
+
+
+
+
+
+
+
+
+                <td><a class="btn btn-danger" onclick="return eliminarEmpleado()" href="<?php echo e(route('gestion.delNote',['id'=>$nota->id])); ?>"><img src="<?php echo e(asset('img\delete_white_24dp.svg')); ?>" alt=""></a></td>
+
+            </tr>
+
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <script>
+                function eliminarEmpleado() {
+                    let res = confirm('realmente quiere eliminar el item seleccionado?');
+                    if (res) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                function finalizarVigencia() {
+                    let res = confirm('al finalizar vigencia, la nota no aparecera en las estadisticas, significa que ya fue cumplida');
+                    if (res) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            </script>
+        </tbody>
+    </table>
+    <a class="btn btn-secondary mr-2 mt-5" href="<?php echo e(route('gestion.index')); ?>">Volver</a>
+    <button class="btn btn-warning  text-white mt-5 " data-toggle="modal" data-target="#exampleModal"> crear nueva nota</button>
+</div>
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nueva nota</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo e(route('gestion.addNote',['nombre'=>$nota->nombre])); ?>" method="POST">
+                    <?php echo csrf_field(); ?>
+                    <div class="form-group" id="modalNotas">
+                        <label for="recipient-name">Motivo:</label>
+                        <select name="titulo" class="form-control" id="tiposDeNota">
+                            <option value="Gestiones incorrectas">Gestiones incorrectas</option>
+                            <option value="Llegadas tarde">Llegadas tarde</option>
+                            <option value="Queja cliente">Queja cliente</option>
+                            <option value="Distinción cliente">Distinción cliente</option>
+                            <option value="horas a favor">Horas a favor</option>
+                            <option value="horas en contra">Horas en contra</option>
+                            <option value="Ausencias">Ausencias</option>
+                            <option value="Otros">Otros</option>
+                            <option value="Faltas a las normas">Faltas a las normas</option>
+                            <option value="Faltas procedimientos">Faltas procedimientos</option>
+                            <option value="Inconvenientes con el sistema">Inconvenientes con el sistema</option>
+
+                        </select>
+                    </div>
+                    Autofinalizar? <input type="checkbox" name="autofinalizar">
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Nota:</label>
+                        <textarea class="form-control" id="message-text" name="nota"></textarea>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+<?php endif; ?>
+
+
+
+<script src="<?php echo e(asset('js/registrosNotasApp.js')); ?>"></script>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/proyectos/sonda/resources/views/gestion/notas.blade.php ENDPATH**/ ?>
